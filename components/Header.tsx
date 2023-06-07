@@ -11,7 +11,7 @@ const Header = () => {
         </h1>
       </div>
       {/* <NotImplAlert> */}
-      <Button variant={"outline"}>Connect</Button>
+      <Button variant={"outline"}>Connect Wallet</Button>
       {/* </NotImplAlert> */}
     </header>
   );
