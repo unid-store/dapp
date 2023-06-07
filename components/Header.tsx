@@ -10,9 +10,9 @@ const Header = () => {
           Universal Decentralized Storage
         </h1>
       </div>
-      <NotImplAlert>
-        <Button variant={"outline"}>Sign in</Button>
-      </NotImplAlert>
+      {/* <NotImplAlert> */}
+      <Button variant={"outline"}>Sign in</Button>
+      {/* </NotImplAlert> */}
     </header>
   );
 };

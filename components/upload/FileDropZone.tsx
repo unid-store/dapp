@@ -1,5 +1,5 @@
 import { NextPage } from "next";
-import React, { DragEvent } from "react";
+import React from "react";
 import { useDropzone, FileRejection, DropEvent } from "react-dropzone";
 
 interface FileDropZoneProps {

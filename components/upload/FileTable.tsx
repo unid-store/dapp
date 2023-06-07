@@ -1,3 +1,5 @@
+import { Button } from "../ui/button";
+
 interface FileTableProps {
   files: File[];
   removeFile: (file: File) => void;
@@ -14,7 +16,7 @@ const FileTable: React.FC<FileTableProps> = ({ files, removeFile }) => {
           >
             <td className="px-4 py-2">{file.name}</td>
             <td className="px-4 py-2">
-              <button
+              <Button
                 onClick={() => removeFile(file)}
                 className="text-red-500 hover:text-red-700 transition-colors duration-150"
               >
@@ -32,7 +34,7 @@ const FileTable: React.FC<FileTableProps> = ({ files, removeFile }) => {
                     d="M6 18L18 6M6 6l12 12"
                   />
                 </svg>
-              </button>
+              </Button>
             </td>
           </tr>
         ))}
