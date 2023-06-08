@@ -1,5 +1,8 @@
-import UploadFiles from "@/components/upload/UploadFiles";
+import Upload from "@/components/upload/Upload";
 
-const Home = () => <UploadFiles />;
-
+const Home = () => (
+  <>
+    <Upload />
+  </>
+);
 export default Home;
