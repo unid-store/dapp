@@ -1,9 +1,9 @@
-import React, { HTMLAttributes } from "react";
+import React from "react";
 
 interface ButtonProps {
   variant: "default" | "outlined";
   children: React.ReactNode;
-  className: string;
+  className?: string;
   onClick?: () => void;
 }
 
