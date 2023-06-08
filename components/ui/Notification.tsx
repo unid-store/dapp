@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { Button } from "../ui/button";
 
 interface NotificationProps {
   onClose: () => void;
@@ -36,9 +35,9 @@ export const Notification = ({
       <div className="bg-white rounded-lg p-4 shadow-lg border border-gray-200 text-black flex flex-col items-start">
         <h2 className="text-2xl font-bold mb-2">{title}</h2>
         {subtitle && <p className="text-gray-600">{subtitle}</p>}
-        <Button onClick={onClose} className="mt-2 ml-auto">
+        <button onClick={onClose} className="mt-2 ml-auto">
           {"Close"}
-        </Button>
+        </button>
       </div>
     </motion.div>
   );

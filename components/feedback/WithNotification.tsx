@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState, cloneElement } from "react";
 import { AnimatePresence } from "framer-motion";
 
