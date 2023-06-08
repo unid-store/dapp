@@ -7,7 +7,12 @@ interface ButtonProps {
   onClick?: () => void;
 }
 
-const Button = ({ variant, children, className, onClick }: ButtonProps) => {
+export const Button = ({
+  variant,
+  children,
+  className,
+  onClick,
+}: ButtonProps) => {
   const styles = {
     default:
       "bg-black text-gray-200 border border-gray-200 hover:bg-gray-800 hover:border-gray-800 active:bg-gray-900 active:border-gray-900",
@@ -24,5 +29,3 @@ const Button = ({ variant, children, className, onClick }: ButtonProps) => {
     </button>
   );
 };
-
-export default Button;
