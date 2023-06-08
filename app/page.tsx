@@ -1,9 +1,5 @@
 import UploadFiles from "@/components/upload/UploadFiles";
 
-export default function Home() {
-  return (
-    <main>
-      <UploadFiles />
-    </main>
-  );
-}
+const Home = () => <UploadFiles />;
+
+export default Home;

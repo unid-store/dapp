@@ -3,21 +3,21 @@
 import React, { useState, cloneElement } from "react";
 import { AnimatePresence } from "framer-motion";
 
-import { Notification } from "@/components/ui/Notification";
+import { Toast } from "@/components/ui/Toast";
 
-interface WithNotificationProps {
+interface WithToastProps {
   children: React.ReactElement; // only a single child is accepted
   title: string;
   subtitle?: string;
   timeout?: number;
 }
 
-const WithNotification: React.FC<WithNotificationProps> = ({
+export const WithToast = ({
   children,
   title,
   subtitle,
   timeout = 5000,
-}) => {
+}: WithToastProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleOnClick = () => {
@@ -28,6 +28,7 @@ const WithNotification: React.FC<WithNotificationProps> = ({
     setIsOpen(false);
   };
 
+  // clone to extend object with `onClick` prop
   const clonedChild = cloneElement(children, { onClick: handleOnClick });
 
   return (
@@ -35,7 +36,7 @@ const WithNotification: React.FC<WithNotificationProps> = ({
       {clonedChild}
       <AnimatePresence>
         {isOpen && (
-          <Notification
+          <Toast
             onClose={handleClose}
             title={title}
             subtitle={subtitle}
@@ -46,5 +47,3 @@ const WithNotification: React.FC<WithNotificationProps> = ({
     </>
   );
 };
-
-export default WithNotification;

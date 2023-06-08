@@ -1,10 +1,11 @@
-import WithNotification from "@/components/feedback/WithNotification";
+import { WithToast } from "@/components/feedback/WithToast";
+import Button from "../ui/Button";
 
 export const SignIn = () => (
-  <WithNotification
-    title={"NOt implemented yet"}
+  <WithToast
+    title={"Not implemented yet"}
     subtitle={"Stay tuned as we implement walletconnect v2 soon!"}
   >
-    <button>Connect Wallet </button>
-  </WithNotification>
+    <Button variant={"default"}>Connect Wallet </Button>
+  </WithToast>
 );
