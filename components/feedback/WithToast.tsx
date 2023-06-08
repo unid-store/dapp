@@ -16,7 +16,7 @@ export const WithToast = ({
   children,
   title,
   subtitle,
-  timeout = 5000,
+  timeout = 2500,
 }: WithToastProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
