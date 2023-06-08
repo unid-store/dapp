@@ -10,12 +10,7 @@ interface ToastProps {
   timeout?: number; // timeout in milliseconds
 }
 
-export const Toast = ({
-  onClose,
-  title,
-  subtitle,
-  timeout = 2500,
-}: ToastProps) => {
+export const Toast = ({ onClose, title, subtitle, timeout }: ToastProps) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       onClose(); // Automatically close the toast after the timeout
