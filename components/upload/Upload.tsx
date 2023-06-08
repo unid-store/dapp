@@ -9,7 +9,7 @@ import FileDropZone from "./FileDropZone";
 import { Button } from "@/components/ui/Button";
 import { Spinner } from "@/components/ui/Spinner";
 
-export default function UploadFiles() {
+export default function Upload() {
   const [files, setFiles] = useState<File[]>([]);
   const [cid, setCID] = useState<string>();
   const [uploading, setUploading] = useState<boolean>(false);
@@ -36,9 +36,33 @@ export default function UploadFiles() {
     });
   };
 
+  const handleReset = () => {
+    setCID(undefined);
+  };
+
   return (
     <>
-      {(uploading && <Spinner />) || (
+      {uploading ? (
+        <Spinner />
+      ) : cid ? (
+        <div className="mt-4">
+          <div className="mb-4">Your file was uploaded successfully.</div>
+          <a
+            href={`https://nftstorage.link/ipfs/${cid}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-block bg-gray-200 rounded px-3 py-2 mb-3 text-black font-semibold hover:bg-gray-300 transition duration-300"
+          >
+            View File
+          </a>
+          <button
+            onClick={handleReset}
+            className="block w-full text-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition duration-300"
+          >
+            Upload Again
+          </button>
+        </div>
+      ) : (
         <>
           <FileDropZone onDrop={onDrop} />
           {files.length > 0 && (
@@ -48,7 +72,11 @@ export default function UploadFiles() {
                 removeFile={removeFile}
                 removeAllFiles={() => setFiles([])}
               />
-              <Button variant={"default"} onClick={handleUpload}>
+              <Button
+                variant={"default"}
+                onClick={handleUpload}
+                className="mt-4"
+              >
                 {"Upload"}
               </Button>
             </>
