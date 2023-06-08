@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-// import { NotImplAlert } from "./feedback/NotImplAlert";
+import NotImplAlert from "@/components/feedback/NotImplAlert";
+import SignIn from "./SignIn";
 
 const Header = () => {
   return (
@@ -10,9 +11,7 @@ const Header = () => {
           Universal Decentralized Storage
         </h1>
       </div>
-      {/* <NotImplAlert> */}
-      <Button variant={"outline"}>Connect</Button>
-      {/* </NotImplAlert> */}
+      <SignIn />
     </header>
   );
 };

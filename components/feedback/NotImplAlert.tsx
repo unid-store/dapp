@@ -1,33 +1,33 @@
-// "use client";
+import { NextPage } from "next";
+import { Button } from "../ui/button";
+import { motion } from "framer-motion";
 
-// import {
-//   AlertDialog,
-//   AlertDialogCancel,
-//   AlertDialogContent,
-//   AlertDialogDescription,
-//   AlertDialogFooter,
-//   AlertDialogHeader,
-//   AlertDialogTitle,
-//   AlertDialogTrigger,
-// } from "@/components/ui/alert-dialog";
+interface NotImplAlertProps {
+  onClose: () => void;
+  title: string;
+  subtitle?: string;
+}
 
-// export function NotImplAlert({ children }: { children: React.ReactNode }) {
-//   return (
-//     <AlertDialog>
-//       <AlertDialogTrigger>{children}</AlertDialogTrigger>
-//       <AlertDialogContent>
-//         <AlertDialogHeader>
-//           <AlertDialogTitle>
-//             {"Log in feature not implemented yet"}
-//           </AlertDialogTitle>
-//           <AlertDialogDescription>
-//             {"Soon we will use wallet connect v2 and wagmi for web3 auth"}
-//           </AlertDialogDescription>
-//         </AlertDialogHeader>
-//         <AlertDialogFooter>
-//           <AlertDialogCancel>Close</AlertDialogCancel>
-//         </AlertDialogFooter>
-//       </AlertDialogContent>
-//     </AlertDialog>
-//   );
-// }
+const NotImplAlert: NextPage<NotImplAlertProps> = ({
+  onClose,
+  title,
+  subtitle,
+}) => {
+  return (
+    <motion.div
+      className="fixed top-24 right-0 mr-4"
+      initial={{ x: 300, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: 300, opacity: 0 }}
+      transition={{ type: "spring", stiffness: 50 }}
+    >
+      <div className="bg-white rounded-lg p-8 shadow-lg border border-gray-200">
+        <h2 className="text-2xl font-bold mb-2">{title}</h2>
+        {subtitle && <p className="text-gray-600">{subtitle}</p>}
+        <Button onClick={onClose}> {"Close"} </Button>
+      </div>
+    </motion.div>
+  );
+};
+
+export default NotImplAlert;
