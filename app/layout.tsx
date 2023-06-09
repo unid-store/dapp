@@ -1,10 +1,8 @@
-import "./globals.css";
 import { Inter } from "next/font/google";
 
-import Header from "@/components/header/Header";
-import Footer from "@/components/footer/Footer";
+import { Header, Footer } from "@/components/layout";
 
-const inter = Inter({ subsets: ["latin"] });
+import "./globals.css";
 
 export const metadata = {
   title: "Universal Decentralized Storage",
@@ -18,7 +16,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={Inter({ subsets: ["latin"] }).className}>
         <div className="flex flex-col h-screen">
           <Header />
           <div className="flex flex-col items-center justify-center flex-1">

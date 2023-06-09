@@ -1,6 +1,6 @@
 import { FaGithub } from "react-icons/fa";
 
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className="bg-gradient-to-r from-gray-700 to-gray-900 text-white py-4 px-6">
       <div className="flex justify-center items-center">
@@ -24,5 +24,3 @@ const Footer = () => {
     </footer>
   );
 };
-
-export default Footer;
