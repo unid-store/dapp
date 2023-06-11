@@ -1,7 +1,7 @@
 import React from "react";
 
 interface ButtonProps {
-  variant: "default" | "outlined";
+  variant?: "default" | "outlined";
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
@@ -22,7 +22,9 @@ export const Button = ({
 
   return (
     <button
-      className={`px-4 py-2 rounded-md transition-colors ${styles[variant]} ${className}`}
+      className={`px-4 py-2 rounded-md transition-colors ${
+        styles[variant ?? "default"]
+      } ${className}`}
       onClick={onClick}
     >
       {children}
