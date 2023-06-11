@@ -23,7 +23,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={robotoMono.className}>
       <body>
-        <div className="flex flex-col h-screen">
+        <div className="flex flex-col h-screen bg-gradient-to-r from-gray-200 to-gray-600">
           <Header />
           <div className="flex flex-col items-center justify-center flex-1">
             {children}
