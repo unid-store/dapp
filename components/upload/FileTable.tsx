@@ -30,7 +30,9 @@ const FileTable = ({ files, cid }: FileTableProps) => {
             key={index}
             className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
           >
-            <td className="px-6 py-4 whitespace-nowrap">{file.name}</td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              {formatFileName(file.name)}
+            </td>
             <td className="px-6 py-4 text-center whitespace-nowrap">
               {formatFileSize(file.size)}
             </td>
@@ -70,6 +72,25 @@ function formatFileSize(fileSize: number): string {
     return (fileSize / 1024).toFixed(2) + " KB";
   } else {
     return (fileSize / (1024 * 1024)).toFixed(2) + " MB";
+  }
+}
+
+function formatFileName(fileName: string): string {
+  const isMobileDevice =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      window.navigator.userAgent
+    );
+
+  let maxLen = isMobileDevice ? 16 : 22; // Set maxLen based on device type
+
+  console.debug(maxLen);
+  if (fileName.length > maxLen) {
+    let splitName = fileName.split(".");
+    let ext = splitName.pop();
+    let baseName = splitName.join(".");
+    return baseName.substring(0, 4) + "..." + baseName.slice(-4) + "." + ext;
+  } else {
+    return fileName;
   }
 }
 
