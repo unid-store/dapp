@@ -1,6 +1,3 @@
-import { PrivacyPolicyIcon } from "@/components/media/icons/PrivacyPolicyIcon";
-import { TermsAndConditionsIcon } from "@/components/media/icons/TermsAndConditionsIcon";
-import Link from "next/link";
 import { FaGithub } from "react-icons/fa";
 
 export const Footer = () => {
