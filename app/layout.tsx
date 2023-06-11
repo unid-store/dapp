@@ -1,10 +1,14 @@
-import { Inter } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 
 import { Header, Footer } from "@/components/layout";
 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-roboto-mono",
+});
 
 export const metadata = {
   title: "Universal Decentralized Storage",
@@ -17,9 +21,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="flex flex-col h-screen">
+    <html lang="en" className={robotoMono.className}>
+      <body>
+        <div className="flex flex-col h-screen bg-gradient-to-r from-gray-200 to-gray-600">
           <Header />
           <div className="flex flex-col items-center justify-center flex-1">
             {children}

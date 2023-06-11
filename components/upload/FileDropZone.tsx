@@ -1,6 +1,7 @@
-import { NextPage } from "next";
 import React from "react";
 import { useDropzone, FileRejection, DropEvent } from "react-dropzone";
+
+import { UploadIcon } from "@/components/media/icons/UploadIcon";
 
 interface FileDropZoneProps {
   onDrop: (
@@ -10,7 +11,24 @@ interface FileDropZoneProps {
   ) => void;
 }
 
-const FileDropZone: NextPage<FileDropZoneProps> = ({ onDrop }) => {
+const MobileUploadButton = ({ onDrop }: FileDropZoneProps) => {
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop,
+    multiple: true,
+  });
+
+  return (
+    <button
+      {...getRootProps()}
+      className="bg-gray-900 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded transition-colors duration-200 ease-in-out md:hidden"
+    >
+      <input {...getInputProps()} />
+      <UploadIcon />
+    </button>
+  );
+};
+
+const DesktopDropZone = ({ onDrop }: FileDropZoneProps) => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     multiple: true,
@@ -19,14 +37,25 @@ const FileDropZone: NextPage<FileDropZoneProps> = ({ onDrop }) => {
   return (
     <div
       {...getRootProps()}
-      className={`border-dashed border-2 p-6 rounded cursor-pointer mb-6 ${
-        isDragActive ? "bg-gray-200" : "bg-gray-100"
-      }`}
+      className={`bg-gradient-to-r from-gray-600 to-gray-900 p-6 w-2/3 rounded cursor-pointer mb-6 md:block hidden text-white`}
     >
       <input {...getInputProps()} />
-      <p>{"Drag 'n' drop some files here, or click to select files"}</p>
-      {isDragActive && <p>Drop the files here ...</p>}
+      {(!isDragActive && (
+        <div className="flex items-center justify-left space-x-4">
+          <UploadIcon />
+          <p>{"Click or drag files here"}</p>
+        </div>
+      )) || <p>{"Release to drop the files..."}</p>}
     </div>
+  );
+};
+
+const FileDropZone = ({ onDrop }: FileDropZoneProps) => {
+  return (
+    <>
+      <DesktopDropZone onDrop={onDrop} />
+      <MobileUploadButton onDrop={onDrop} />
+    </>
   );
 };
 
