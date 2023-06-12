@@ -1,28 +1,27 @@
-import { Button } from "../ui/Button";
-import { FaMinus, FaRegTrashAlt } from "react-icons/fa";
+import { LuFileSymlink, LuFolderSymlink } from "react-icons/lu";
+
+import { Button } from "@/components/ui/Button";
+import Link from "next/link";
 
 interface FileTableProps {
   files: File[];
-  removeFile: (file: File) => void;
-  removeAllFiles: () => void;
+  cid: string;
 }
 
-const FileTable = ({ files, removeFile, removeAllFiles }: FileTableProps) => {
+const FileTable = ({ files, cid }: FileTableProps) => {
+  console.debug("Files in FileTable:", { files });
   const totalSize = files.reduce((total, file) => total + file.size, 0);
 
+  const genLink = (file?: File) =>
+    `https://${cid}.ipfs.nftstorage.link/${file ? file.name : ""}`;
+
   return (
-    <table className="table-auto w-full text-gray-700">
-      <thead className="bg-gray-50">
+    <table className="table-auto w-full">
+      <thead className="bg-gray-50 text-xs m-10">
         <tr>
-          <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider">
-            Name
-          </th>
-          <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-            Size
-          </th>
-          <th className="px-6 py-3 text-xs font-medium text-gray-500 uppercase tracking-wider text-center">
-            Action
-          </th>
+          <th>Name</th>
+          <th>Size</th>
+          <th />
         </tr>
       </thead>
       <tbody className="divide-y divide-gray-200">
@@ -31,34 +30,36 @@ const FileTable = ({ files, removeFile, removeAllFiles }: FileTableProps) => {
             key={index}
             className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
           >
-            <td className="px-6 py-4 whitespace-nowrap">{file.name}</td>
+            <td className="px-6 py-4 whitespace-nowrap">
+              {formatFileName(file.name)}
+            </td>
             <td className="px-6 py-4 text-center whitespace-nowrap">
               {formatFileSize(file.size)}
             </td>
             <td className="px-6 py-4 text-center whitespace-nowrap">
-              <Button
-                onClick={() => removeFile(file)}
-                variant="outlined"
-                className="bg-white border-red-200 hover:bg-white hover:border-red-700 active:bg-red-900 active:border-red-900"
-              >
-                <FaMinus className="text-red-500 text-xs" />
-              </Button>
+              <Link target="_blank" href={genLink(file)}>
+                <Button>
+                  <LuFileSymlink />
+                </Button>
+              </Link>
             </td>
           </tr>
         ))}
-        <tr className="bg-gray-50">
-          <td className="px-6 py-4">Total: {files.length} files</td>
-          <td className="px-6 py-4 text-center">{formatFileSize(totalSize)}</td>
-          <td className="px-6 py-4 text-center">
-            <Button
-              onClick={removeAllFiles}
-              variant="outlined"
-              className="bg-white border-red-200 hover:bg-white hover:border-red-700 active:bg-red-900 active:border-red-900"
-            >
-              <FaRegTrashAlt className="text-red-500 text-xs" />
-            </Button>
-          </td>
-        </tr>
+        {files.length > 1 && (
+          <tr className="bg-gray-50">
+            <td className="px-6 py-4">Total: {files.length} files</td>
+            <td className="px-6 py-4 text-center">
+              {formatFileSize(totalSize)}
+            </td>
+            <td className="px-6 py-4 text-center whitespace-nowrap">
+              <Link target="_blank" href={genLink()}>
+                <Button>
+                  <LuFolderSymlink />
+                </Button>
+              </Link>
+            </td>
+          </tr>
+        )}
       </tbody>
     </table>
   );
@@ -71,6 +72,25 @@ function formatFileSize(fileSize: number): string {
     return (fileSize / 1024).toFixed(2) + " KB";
   } else {
     return (fileSize / (1024 * 1024)).toFixed(2) + " MB";
+  }
+}
+
+function formatFileName(fileName: string): string {
+  const isMobileDevice =
+    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+      window.navigator.userAgent
+    );
+
+  let maxLen = isMobileDevice ? 16 : 22; // Set maxLen based on device type
+
+  console.debug(maxLen);
+  if (fileName.length > maxLen) {
+    let splitName = fileName.split(".");
+    let ext = splitName.pop();
+    let baseName = splitName.join(".");
+    return baseName.substring(0, 4) + "..." + baseName.slice(-4) + "." + ext;
+  } else {
+    return fileName;
   }
 }
 

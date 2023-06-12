@@ -1,14 +1,19 @@
-import { Inter } from "next/font/google";
+import { Roboto_Mono } from "next/font/google";
 
 import { Header, Footer } from "@/components/layout";
 
 import "./globals.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const robotoMono = Roboto_Mono({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-roboto-mono",
+});
 
 export const metadata = {
   title: "Universal Decentralized Storage",
-  description: "Simple & quick file sharing, but decentralized. Upload file to to share with friends, no registration is needed. The file would be stored in IPFS and available to public, so do not share any sensitive information. The project is build for ETHGlobal Hack 2023, with the idea to improve UX with interaction with Filecoin, solving a common problem of quick and convinient file sharing",
+  description:
+    "File sharing simple, quick but decentralized. Upload and share with no registration required. Your data is stored in public decentralized storage, making it accessible to all, so please refrain from sharing sensitive information💡. This project was crafted for ETHGlobal HackFS 2023, aiming to enhance UX interactions with decentralized storage, effectively addressing the need for speedy and convenient file sharing.",
 };
 
 export default function RootLayout({
@@ -17,9 +22,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <div className="flex flex-col h-screen">
+    <html lang="en" className={robotoMono.className}>
+      <body>
+        <div className="flex flex-col h-screen bg-gradient-to-r from-gray-200 to-gray-600">
           <Header />
           <div className="flex flex-col items-center justify-center flex-1">
             {children}

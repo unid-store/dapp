@@ -1,11 +1,13 @@
 import React from "react";
 
-interface LogoProps {
+interface UploadIconProps {
   size?: "small" | "medium" | "large";
 }
 
-export const Logo = ({ size = "medium" }: LogoProps) => {
-  const getSizeClass = (size: LogoProps["size"]) => {
+export const TermsAndConditionsIcon = ({
+  size = "medium",
+}: UploadIconProps) => {
+  const getSizeClass = (size: UploadIconProps["size"]) => {
     switch (size) {
       case "small":
         return "w-8 h-8";
@@ -20,5 +22,5 @@ export const Logo = ({ size = "medium" }: LogoProps) => {
 
   const sizeClass = getSizeClass(size);
 
-  return <img src="/logo.png" alt="Logo" className={`${sizeClass} rounded`} />;
+  return <img src="/tc.png" alt="Logo" className={`${sizeClass} rounded`} />;
 };

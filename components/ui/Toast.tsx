@@ -23,7 +23,7 @@ export const Toast = ({ onClose, title, subtitle, timeout }: ToastProps) => {
 
   return (
     <motion.div
-      className="fixed top-24 right-0 mr-4"
+      className="fixed top-24 right-0 m-4"
       initial={{ x: 300, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: 300, opacity: 0 }}

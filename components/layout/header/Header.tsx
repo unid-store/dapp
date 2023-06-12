@@ -1,10 +1,16 @@
 import { Logo } from "@/components/media/Logo";
 import { ConnectButton } from "@/components/connect/ConnectButton";
+import Link from "next/link";
 
 export const Header = () => {
   return (
-    <header className="flex flex-col sm:flex-row justify-between items-center py-4 px-6 bg-gradient-to-r from-gray-700 to-gray-900 text-white">
-      <Logo />
+    <header className="px-2 py-2 flex justify-between items-center bg-gradient-to-r from-gray-700 to-gray-900 text-white">
+      <Link href={"/"} className="flex items-center">
+        <Logo size={"medium"} />
+        <div className="hidden sm:block ml-3 text-lg sm:text-2xl font-bold">
+          Universal Decentralized Storage
+        </div>
+      </Link>
       <ConnectButton />
     </header>
   );
