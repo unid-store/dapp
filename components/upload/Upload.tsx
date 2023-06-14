@@ -40,9 +40,10 @@ export default function Upload() {
       <FileTable files={files} cid={cid!} />
       <Button
         onClick={handleReset}
-        className="bg-gradient-to-r from-gray-600 to-gray-900 p-4 mt-2 w-full cursor-pointer"
+        className="bg-gradient-to-r from-gray-600 to-gray-900 p-4 mt-2 w-full cursor-pointer flex items-center"
       >
         <UploadIcon />
+        <p className={"ml-2"}>{"Upload again ..."}</p>
       </Button>
     </div>
   );
