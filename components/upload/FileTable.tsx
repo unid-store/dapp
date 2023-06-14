@@ -9,7 +9,6 @@ interface FileTableProps {
 }
 
 const FileTable = ({ files, cid }: FileTableProps) => {
-  console.debug("Files in FileTable:", { files });
   const totalSize = files.reduce((total, file) => total + file.size, 0);
 
   const genLink = (file?: File) =>
@@ -83,7 +82,6 @@ function formatFileName(fileName: string): string {
 
   let maxLen = isMobileDevice ? 16 : 22; // Set maxLen based on device type
 
-  console.debug(maxLen);
   if (fileName.length > maxLen) {
     let splitName = fileName.split(".");
     let ext = splitName.pop();

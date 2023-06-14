@@ -10,6 +10,7 @@ interface WithToastProps {
   title: string;
   subtitle?: string;
   timeout?: number;
+  show?: boolean;
 }
 
 export const WithToast = ({
@@ -17,8 +18,9 @@ export const WithToast = ({
   title,
   subtitle,
   timeout = 2500,
+  show,
 }: WithToastProps) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(show ?? false);
 
   const handleOnClick = () => {
     setIsOpen(true);
