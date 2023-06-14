@@ -1,6 +1,7 @@
-import { Logo } from "@/components/media/Logo";
-import { ConnectButton } from "@/components/connect/ConnectButton";
 import Link from "next/link";
+
+import { ConnectButton } from "@/components/connect/ConnectButton";
+import { Logo } from "@/components/media/Logo";
 
 export const Header = () => {
   return (

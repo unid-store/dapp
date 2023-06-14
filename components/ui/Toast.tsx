@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 
-import { Button } from "@/components/ui/Button";
-
 interface ToastProps {
   onClose: () => void;
   title: string;
@@ -23,7 +21,7 @@ export const Toast = ({ onClose, title, subtitle, timeout }: ToastProps) => {
 
   return (
     <motion.div
-      className="fixed top-24 right-0 m-4"
+      className="fixed top-16 right-0 m-4"
       initial={{ x: 300, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: 300, opacity: 0 }}
