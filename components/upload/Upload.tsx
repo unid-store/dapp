@@ -40,10 +40,8 @@ export default function Upload() {
           {exists && (
             // @TODO refactor `WithToast` and `Toast` to allow show conditionally toast, or conditional wrapper
             <WithToast
-              title={`${
-                files.length > 0 ? "Files" : "File"
-              } uploaded already! `}
-              subtitle={"Check the link!"}
+              title={`✅ uploaded already `}
+              subtitle={"check the link!"}
               show
             >
               <></>
