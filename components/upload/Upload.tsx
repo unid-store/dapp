@@ -17,16 +17,14 @@ export default function Upload() {
 
   const [uploading, setUploading] = useState<boolean>(false);
 
-  useEffect(() => {
-    const handleUpload = async () => {
-      setUploading(true);
-      const { cid, exists } = await upload(files);
-      setCID(cid);
-      setExists(exists);
-      setUploading(false);
-    };
-    files.length > 0 && !cid && handleUpload();
-  }, [files, cid]);
+  const handleUpload = async (files: File[]) => {
+    setFiles(files);
+    setUploading(true);
+    const { cid, exists } = await upload(files);
+    setCID(cid);
+    setExists(exists);
+    setUploading(false);
+  };
 
   const handleReset = () => {
     setCID(undefined);
@@ -58,7 +56,7 @@ export default function Upload() {
         </div>
       ) : (
         <>
-          <FileDropZone onDrop={async (files: File[]) => setFiles(files)} />
+          <FileDropZone onDrop={async (files: File[]) => handleUpload(files)} />
         </>
       )}
     </>
