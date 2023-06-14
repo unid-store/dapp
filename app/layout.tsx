@@ -24,9 +24,9 @@ export default function RootLayout({
   return (
     <html lang="en" className={robotoMono.className}>
       <body>
-        <div className="flex flex-col h-screen bg-gradient-to-r from-gray-200 to-gray-600">
+        <div className="flex flex-col h-screen">
           <Header />
-          <div className="flex flex-col items-center justify-center flex-1">
+          <div className="flex items-center justify-center flex-1 bg-gradient-to-r from-gray-200 to-gray-600">
             {children}
           </div>
           <Footer />

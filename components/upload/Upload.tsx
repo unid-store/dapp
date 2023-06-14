@@ -9,57 +9,54 @@ import { WithToast } from "@/components/feedback/WithToast";
 import FileDropZone from "./FileDropZone";
 import { upload } from "./HandleUpload";
 import FileTable from "./FileTable";
+import { UploadIcon } from "../media/icons/UploadIcon";
 
 export default function Upload() {
+  const [uploading, setUploading] = useState<boolean>();
   const [files, setFiles] = useState<File[]>([]);
+  const [exists, setExists] = useState<boolean>();
   const [cid, setCID] = useState<string>();
-  const [exists, setExists] = useState(false);
 
-  const [uploading, setUploading] = useState<boolean>(false);
-
-  useEffect(() => {
-    const handleUpload = async () => {
-      setUploading(true);
-      const { cid, exists } = await upload(files);
-      setCID(cid);
-      setExists(exists);
-      setUploading(false);
-    };
-    files.length > 0 && !cid && handleUpload();
-  }, [files, cid]);
+  const handleUpload = async (acceptedFiles: File[]) => {
+    setUploading(true);
+    setFiles(acceptedFiles);
+    const { cid, exists } = await upload(acceptedFiles);
+    setCID(cid);
+    setExists(exists);
+    setUploading(false);
+  };
 
   const handleReset = () => {
-    setCID(undefined);
+    setUploading(false);
     setFiles([]);
+    setExists(false);
+    setCID(undefined);
   };
+
+  const uploadState = <FileDropZone onDrop={handleUpload} />;
+
+  const resultState = (
+    <div className="flex flex-col">
+      <FileTable files={files} cid={cid!} />
+      <Button
+        onClick={handleReset}
+        className="bg-gradient-to-r from-gray-600 to-gray-900 p-4 mt-2 w-full cursor-pointer flex items-center"
+      >
+        <UploadIcon />
+        <p className={"ml-2"}>{"Upload again ..."}</p>
+      </Button>
+    </div>
+  );
 
   return (
     <>
-      {uploading ? (
-        <Spinner />
-      ) : cid ? (
-        <div>
-          {exists && (
-            // @TODO refactor `WithToast` and `Toast` to allow show conditionally toast, or conditional wrapper
-            <WithToast
-              title={`${
-                files.length > 0 ? "Files" : "File"
-              } uploaded already! `}
-              subtitle={"Check the link!"}
-              show
-            >
-              <></>
-            </WithToast>
-          )}
-          <FileTable files={files} cid={cid} />
-          <Button onClick={handleReset} className="mt-4 w-full text-center">
-            {"Upload Again"}
-          </Button>
-        </div>
-      ) : (
-        <>
-          <FileDropZone onDrop={async (files: File[]) => setFiles(files)} />
-        </>
+      {(uploading && <Spinner />) || (!cid && uploadState) || resultState}
+      {exists && (
+        <WithToast
+          title={`✅ uploaded already `}
+          subtitle={"check the link!"}
+          show
+        />
       )}
     </>
   );

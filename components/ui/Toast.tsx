@@ -1,8 +1,6 @@
 import { motion } from "framer-motion";
 import { useEffect } from "react";
 
-import { Button } from "@/components/ui/Button";
-
 interface ToastProps {
   onClose: () => void;
   title: string;
@@ -23,7 +21,7 @@ export const Toast = ({ onClose, title, subtitle, timeout }: ToastProps) => {
 
   return (
     <motion.div
-      className="fixed top-24 right-0 m-4"
+      className="fixed top-16 right-0 m-4"
       initial={{ x: 300, opacity: 0 }}
       animate={{ x: 0, opacity: 1 }}
       exit={{ x: 300, opacity: 0 }}
@@ -32,9 +30,6 @@ export const Toast = ({ onClose, title, subtitle, timeout }: ToastProps) => {
       <div className="bg-white rounded-lg p-4 shadow-lg border border-gray-200 text-black flex flex-col items-start">
         <h2 className="text-2xl font-bold mb-2">{title}</h2>
         {subtitle && <p className="text-gray-600">{subtitle}</p>}
-        <Button variant={"default"} onClick={onClose} className="mt-2 ml-auto">
-          {"Close"}
-        </Button>
       </div>
     </motion.div>
   );
