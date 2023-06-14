@@ -1,7 +1,6 @@
 import { Roboto_Mono } from "next/font/google";
 
 import { Header, Footer } from "@/components/layout";
-
 import "./globals.css";
 
 const robotoMono = Roboto_Mono({
