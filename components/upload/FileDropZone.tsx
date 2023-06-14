@@ -2,6 +2,7 @@ import React from "react";
 import { useDropzone, FileRejection, DropEvent } from "react-dropzone";
 
 import { UploadIcon } from "@/components/media/icons/UploadIcon";
+import { Button } from "../ui/Button";
 
 interface FileDropZoneProps {
   onDrop: (
@@ -41,10 +42,10 @@ const DesktopDropZone = ({ onDrop }: FileDropZoneProps) => {
     >
       <input {...getInputProps()} />
       {(!isDragActive && (
-        <div className="flex items-center justify-left space-x-4">
+        <Button className="flex items-center justify-left ">
           <UploadIcon />
           <p>{"Click or drag files here"}</p>
-        </div>
+        </Button>
       )) || <p>{"Release to drop the files..."}</p>}
     </div>
   );

@@ -9,6 +9,7 @@ import { WithToast } from "@/components/feedback/WithToast";
 import FileDropZone from "./FileDropZone";
 import { upload } from "./HandleUpload";
 import FileTable from "./FileTable";
+import { UploadIcon } from "../media/icons/UploadIcon";
 
 export default function Upload() {
   const [uploading, setUploading] = useState<boolean>();
@@ -26,8 +27,10 @@ export default function Upload() {
   };
 
   const handleReset = () => {
-    setCID(undefined);
+    setUploading(false);
     setFiles([]);
+    setExists(false);
+    setCID(undefined);
   };
 
   const uploadState = <FileDropZone onDrop={handleUpload} />;
@@ -35,8 +38,11 @@ export default function Upload() {
   const resultState = (
     <div className="flex flex-col">
       <FileTable files={files} cid={cid!} />
-      <Button onClick={handleReset} className="mt-4 w-full text-center">
-        {"Upload Again"}
+      <Button
+        onClick={handleReset}
+        className="bg-gradient-to-r from-gray-600 to-gray-900 p-4 mt-2 w-full cursor-pointer"
+      >
+        <UploadIcon />
       </Button>
     </div>
   );

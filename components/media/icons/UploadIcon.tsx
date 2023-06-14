@@ -2,9 +2,10 @@ import React from "react";
 
 interface UploadIconProps {
   size?: "small" | "medium" | "large";
+  onClick?: () => void;
 }
 
-export const UploadIcon = ({ size = "medium" }: UploadIconProps) => {
+export const UploadIcon = ({ size = "medium", onClick }: UploadIconProps) => {
   const getSizeClass = (size: UploadIconProps["size"]) => {
     switch (size) {
       case "small":
@@ -21,6 +22,11 @@ export const UploadIcon = ({ size = "medium" }: UploadIconProps) => {
   const sizeClass = getSizeClass(size);
 
   return (
-    <img src="/upload.png" alt="Logo" className={`${sizeClass} rounded`} />
+    <img
+      onClick={onClick}
+      src="/upload.png"
+      alt="Logo"
+      className={`${sizeClass} rounded`}
+    />
   );
 };
