@@ -19,13 +19,15 @@ const MobileUploadButton = ({ onDrop }: FileDropZoneProps) => {
   });
 
   return (
-    <button
+    <div
       {...getRootProps()}
-      className="bg-gray-700 hover:bg-gray-500 py-2 px-4 rounded  md:hidden"
+      className="md:hidden p-6 rounded bg-gradient-to-r from-gray-600 to-gray-900"
     >
-      <input {...getInputProps()} />
-      <UploadIcon />
-    </button>
+      <Button>
+        <input {...getInputProps()} />
+        <UploadIcon className="w-12 h-12" />
+      </Button>
+    </div>
   );
 };
 
@@ -43,7 +45,7 @@ const DesktopDropZone = ({ onDrop }: FileDropZoneProps) => {
       <input {...getInputProps()} />
       {(!isDragActive && (
         <div className="flex items-center p-4 border border-gray-200 hover:bg-gray-800 hover:border-gray-800 active:bg-gray-900 active:border-gray-900 rounded">
-          <UploadIcon />
+          <UploadIcon className="w-8 h-8" />
           <p className="pl-4">{"Click or drag files here"}</p>
         </div>
       )) || <p>{"Release to drop the files..."}</p>}

@@ -25,7 +25,7 @@ export default function RootLayout({
       <body>
         <div className="flex flex-col h-screen">
           <Header />
-          <div className="flex items-center justify-center flex-1 bg-gradient-to-r from-gray-200 to-gray-600">
+          <div className="flex items-center justify-center flex-1 bg-gradient-to-r from-gray-200 to-gray-600 p-4">
             {children}
           </div>
           <Footer />
