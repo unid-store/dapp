@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import React from "react";
 
 interface ButtonProps {
@@ -22,9 +23,11 @@ export const Button = ({
 
   return (
     <button
-      className={`px-4 py-2 rounded-md transition-colors ${
-        styles[variant ?? "default"]
-      } ${className}`}
+      className={cn(
+        "rounded-md transition-colors",
+        `${styles[variant ?? "default"]}`,
+        className
+      )}
       onClick={onClick}
     >
       {children}

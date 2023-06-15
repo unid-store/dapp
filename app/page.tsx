@@ -4,7 +4,7 @@ import Upload from "@/components/upload/Upload";
 
 const Home = () => (
   <>
-    <Upload />;
+    <Upload />
     <Analytics />
   </>
 );

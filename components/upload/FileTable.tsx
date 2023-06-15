@@ -1,61 +1,32 @@
-import { LuFileSymlink, LuFolderSymlink } from "react-icons/lu";
-
-import { Button } from "@/components/ui/Button";
-import Link from "next/link";
-
 interface FileTableProps {
   files: File[];
-  cid: string;
 }
 
-const FileTable = ({ files, cid }: FileTableProps) => {
+const FileTable = ({ files }: FileTableProps) => {
   const totalSize = files.reduce((total, file) => total + file.size, 0);
 
-  const genLink = (file?: File) =>
-    `https://${cid}.ipfs.nftstorage.link/${file ? file.name : ""}`;
-
   return (
-    <table className="table-auto w-full">
-      <thead className="bg-gray-50 text-xs m-10">
-        <tr>
-          <th>Name</th>
-          <th>Size</th>
-          <th />
+    <table className="table-auto w-full  text-xs">
+      <thead className="bg-gradient-to-r from-gray-600 to-gray-900 ">
+        <tr className="text-white">
+          <th className="px-10 py-1 rounded-tl-md">{"Name"}</th>
+          <th className="rounded-tr-md">Size</th>
         </tr>
       </thead>
-      <tbody className="divide-y divide-gray-200">
+      <tbody>
         {files.map((file, index) => (
-          <tr
-            key={index}
-            className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}
-          >
-            <td className="px-6 py-4 whitespace-nowrap">
-              {formatFileName(file.name)}
-            </td>
-            <td className="px-6 py-4 text-center whitespace-nowrap">
+          <tr key={index} className={"bg-white"}>
+            <td className="px-10 py-1 ">{formatFileName(file.name)}</td>
+            <td className="px-6 py-1 text-right">
               {formatFileSize(file.size)}
-            </td>
-            <td className="px-6 py-4 text-center whitespace-nowrap">
-              <Link target="_blank" href={genLink(file)}>
-                <Button>
-                  <LuFileSymlink />
-                </Button>
-              </Link>
             </td>
           </tr>
         ))}
         {files.length > 1 && (
-          <tr className="bg-gray-50">
-            <td className="px-6 py-4">Total: {files.length} files</td>
-            <td className="px-6 py-4 text-center">
+          <tr className="bg-gray-50  border-t-2">
+            <td className=" pl-6 rounded-bl-md">Total: {files.length} files</td>
+            <td className=" pr-6 rounded-br-md text-right">
               {formatFileSize(totalSize)}
-            </td>
-            <td className="px-6 py-4 text-center whitespace-nowrap">
-              <Link target="_blank" href={genLink()}>
-                <Button>
-                  <LuFolderSymlink />
-                </Button>
-              </Link>
             </td>
           </tr>
         )}
@@ -80,7 +51,7 @@ function formatFileName(fileName: string): string {
       window.navigator.userAgent
     );
 
-  let maxLen = isMobileDevice ? 16 : 22; // Set maxLen based on device type
+  let maxLen = isMobileDevice ? 16 : 36; // Set maxLen based on device type
 
   if (fileName.length > maxLen) {
     let splitName = fileName.split(".");
