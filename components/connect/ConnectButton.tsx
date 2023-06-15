@@ -6,6 +6,6 @@ export const ConnectButton = () => (
     title={"Not implemented yet"}
     subtitle={"Stay tuned as we implement walletconnect v2 soon!"}
   >
-    <Button variant={"default"}>Connect 🔗</Button>
+    <Button className="w-auto h-auto p-2">Connect 🔗</Button>
   </WithToast>
 );

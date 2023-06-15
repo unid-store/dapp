@@ -3,14 +3,26 @@
 import { useState } from "react";
 import va from "@vercel/analytics";
 
+import { Copy, ExternalLink } from "lucide-react";
+
+import FileDropZone from "./FileDropZone";
+import { upload } from "./HandleUpload";
+import FileTable from "./FileTable";
+
 import { UploadIcon } from "@/components/media/icons/UploadIcon";
 import { WithToast } from "@/components/feedback/WithToast";
 import { Spinner } from "@/components/ui/Spinner";
 import { Button } from "@/components/ui/Button";
 
-import FileDropZone from "./FileDropZone";
-import { upload } from "./HandleUpload";
-import FileTable from "./FileTable";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+  CommandSeparator,
+} from "@/components/ui/command";
 
 export default function Upload() {
   const [uploading, setUploading] = useState<boolean>();
@@ -42,18 +54,71 @@ export default function Upload() {
     setCID(undefined);
   };
 
+  const genLink = () =>
+    `https://${cid}.ipfs.nftstorage.link/${
+      files.length > 1 ? "" : files[0].name
+    }`;
+
+  const handleOpenLink = () => window.open(genLink(), "_blank");
+
   const uploadState = <FileDropZone onDrop={handleUpload} />;
 
+  const [copied, setCopied] = useState<boolean>();
   const resultState = (
     <div className="flex flex-col">
-      <FileTable files={files} cid={cid!} />
-      <Button
-        onClick={handleReset}
-        className="bg-gradient-to-r from-gray-600 to-gray-900 p-4 mt-2 w-full cursor-pointer flex items-center"
-      >
-        <UploadIcon />
-        <p className={"ml-2"}>{"Upload again ..."}</p>
-      </Button>
+      <FileTable files={files} />
+
+      <Command className="rounded-lg border shadow-md mt-4">
+        <CommandInput placeholder="Type a command or search..." />
+        <CommandList>
+          <CommandEmpty>No results found.</CommandEmpty>
+          <CommandGroup heading="Navigation">
+            <CommandItem>
+              <Button
+                onClick={handleReset}
+                className="bg-gradient-to-r from-gray-600 to-gray-900 p-1 w-full cursor-pointer flex items-center"
+              >
+                <UploadIcon className="w-8 h-8" />
+                <p className={"ml-2"}>{"Upload again"}</p>
+              </Button>
+            </CommandItem>
+          </CommandGroup>
+          <CommandSeparator />
+          <CommandGroup heading="Actions">
+            <CommandItem>
+              {(copied && (
+                <Button className="bg-gradient-to-r from-gray-600 to-gray-900 p-2  w-full cursor-pointer flex items-center">
+                  <Copy className="w-6 h-6" />
+                  <p className={"ml-2"}>{"Copied ✅"}</p>
+                </Button>
+              )) || (
+                <Button
+                  onClick={() => {
+                    setCopied(true);
+                    navigator.clipboard.writeText(genLink());
+                    setTimeout(() => {
+                      setCopied(false);
+                    }, 2000);
+                  }}
+                  className="bg-gradient-to-r from-gray-600 to-gray-900 p-2  w-full cursor-pointer flex items-center"
+                >
+                  <Copy className="w-6 h-6" />
+                  <p className={"ml-2"}>{"Copy link"}</p>
+                </Button>
+              )}
+            </CommandItem>
+            <CommandItem>
+              <Button
+                onClick={handleOpenLink}
+                className="bg-gradient-to-r from-gray-600 to-gray-900 p-2  w-full cursor-pointer flex items-center"
+              >
+                <ExternalLink className="w-6 h-6" />
+                <p className={"ml-2"}>{"Open link"}</p>
+              </Button>
+            </CommandItem>
+          </CommandGroup>
+        </CommandList>
+      </Command>
     </div>
   );
 

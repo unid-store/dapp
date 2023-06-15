@@ -7,7 +7,7 @@ import { Toast } from "@/components/ui/Toast";
 
 interface WithToastProps {
   children?: React.ReactElement; // only a single child is accepted
-  title: string;
+  title?: string;
   subtitle?: string;
   timeout?: number;
   show?: boolean;
@@ -20,7 +20,7 @@ export const WithToast = ({
   timeout = 2500,
   show,
 }: WithToastProps) => {
-  const [isOpen, setIsOpen] = useState(show ?? false);
+  const [isOpen, setIsOpen] = useState<boolean>(show ?? false);
 
   const handleOnClick = () => {
     setIsOpen(true);
