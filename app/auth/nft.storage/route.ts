@@ -64,6 +64,8 @@ export async function POST() {
   // Step 0: check env variables set up
   if (!pk) throw new Error("No nft.storage private key env var on server!");
   if (!apiKey) throw new Error("No nft.storage api key env var on server!");
+  if (!endpoint) throw new Error("No nft.storage endpoint env var on server!");
+
   try {
     // Step 1: get key pair from env private key
     const kp = await KeyPair.fromExportedKey(pk);
@@ -83,6 +85,10 @@ export async function POST() {
 
     return NextResponse.json({ ucan, did });
   } catch (error) {
-    return NextResponse.json({ status: 500, error });
+    console.error(error);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
 }

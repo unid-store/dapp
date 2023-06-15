@@ -1,15 +1,16 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import va from "@vercel/analytics";
 
+import { UploadIcon } from "@/components/media/icons/UploadIcon";
+import { WithToast } from "@/components/feedback/WithToast";
 import { Spinner } from "@/components/ui/Spinner";
 import { Button } from "@/components/ui/Button";
-import { WithToast } from "@/components/feedback/WithToast";
 
 import FileDropZone from "./FileDropZone";
 import { upload } from "./HandleUpload";
 import FileTable from "./FileTable";
-import { UploadIcon } from "../media/icons/UploadIcon";
 
 export default function Upload() {
   const [uploading, setUploading] = useState<boolean>();
@@ -19,8 +20,16 @@ export default function Upload() {
 
   const handleUpload = async (acceptedFiles: File[]) => {
     setUploading(true);
-    setFiles(acceptedFiles);
+
     const { cid, exists } = await upload(acceptedFiles);
+
+    if (!exists)
+      va.track("upload", {
+        size: acceptedFiles.reduce((total, file) => total + file.size, 0),
+        files: acceptedFiles.length,
+      });
+
+    setFiles(acceptedFiles);
     setCID(cid);
     setExists(exists);
     setUploading(false);
