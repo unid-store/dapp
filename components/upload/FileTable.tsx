@@ -1,12 +1,16 @@
+import calculateTotalFilesSize from "@/lib/files/calculateTotalFilesSize";
+import formatFileSize from "@/lib/files/formatFileSize";
+
 interface FileTableProps {
   files: File[];
+  filesSize: number;
 }
 
-const FileTable = ({ files }: FileTableProps) => {
-  const totalSize = files.reduce((total, file) => total + file.size, 0);
+const FileTable = ({ files, filesSize }: FileTableProps) => {
+  const totalSize = calculateTotalFilesSize(files);
 
   return (
-    <table className="table-auto w-full  text-xs">
+    <table className="table-auto w-full text-xs">
       <thead className="bg-gradient-to-r from-gray-600 to-gray-900 ">
         <tr className="text-white">
           <th className="px-10 py-1 rounded-tl-md">{"Name"}</th>
@@ -35,15 +39,7 @@ const FileTable = ({ files }: FileTableProps) => {
   );
 };
 
-function formatFileSize(fileSize: number): string {
-  if (fileSize < 1024) {
-    return fileSize + " B";
-  } else if (fileSize < 1024 * 1024) {
-    return (fileSize / 1024).toFixed(2) + " KB";
-  } else {
-    return (fileSize / (1024 * 1024)).toFixed(2) + " MB";
-  }
-}
+// @TODO refactor: move `format...` functions to utils
 
 function formatFileName(fileName: string): string {
   const isMobileDevice =

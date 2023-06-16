@@ -1,10 +1,17 @@
+import { Dispatch, SetStateAction } from "react";
 import { NFTStorage } from "nft.storage";
 
-export const upload = async (files: File[]) => {
-  const { cid: filesCID } = await NFTStorage.encodeDirectory(files);
+export const upload = async (
+  files: File[],
+  setProgress: Dispatch<SetStateAction<number>>,
+  setStarted: Dispatch<SetStateAction<boolean>>
+) => {
+  const { car, cid: cidObj } = await NFTStorage.encodeDirectory(files);
+  const cid = cidObj.toString();
+
   const exists = await NFTStorage.check(
-    { endpoint: new URL("https://api.nft.storage") },
-    filesCID.toString()
+    { endpoint: new URL("https://api.nft.storage/") },
+    cid
   ).catch(() => false);
 
   if (!exists) {
@@ -14,9 +21,15 @@ export const upload = async (files: File[]) => {
 
     const nftstorage = new NFTStorage({ token: ucan, did });
 
-    const cid = await nftstorage.storeDirectory(files);
+    await nftstorage.storeCar(car, {
+      maxChunkSize: 6553600 / 2, // reduce chunk size for better progress feedback
+      onStoredChunk: (size) => {
+        setStarted(true);
+        setProgress((prev) => prev + size);
+      },
+    });
     return { cid, exists: false };
   } else {
-    return { cid: filesCID.toString(), exists: true };
+    return { cid, exists: true };
   }
 };

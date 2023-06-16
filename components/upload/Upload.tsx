@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import va from "@vercel/analytics";
 
 import { Copy, ExternalLink } from "lucide-react";
@@ -13,7 +13,6 @@ import { UploadIcon } from "@/components/media/icons/UploadIcon";
 import { WithToast } from "@/components/feedback/WithToast";
 import { Spinner } from "@/components/ui/Spinner";
 import { Button } from "@/components/ui/Button";
-
 import {
   Command,
   CommandEmpty,
@@ -24,24 +23,36 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 
+import calculateTotalFilesSize from "@/lib/files/calculateTotalFilesSize";
+
 export default function Upload() {
   const [uploading, setUploading] = useState<boolean>();
   const [files, setFiles] = useState<File[]>([]);
-  const [exists, setExists] = useState<boolean>();
-  const [cid, setCID] = useState<string>();
+  const filesSize = useMemo(() => calculateTotalFilesSize(files), [files]);
+  const [exists, setExists] = useState<boolean>(false);
+  const [cid, setCID] = useState<string>("");
+  const [progress, setProgress] = useState<number>(0);
+  const [started, setStarted] = useState<boolean>(false);
 
   const handleUpload = async (acceptedFiles: File[]) => {
     setUploading(true);
+    setFiles(acceptedFiles);
 
-    const { cid, exists } = await upload(acceptedFiles);
+    const { cid, exists } = await upload(
+      acceptedFiles,
+      setProgress,
+      setStarted
+    );
 
+    // @NOTE remove code between dash lines - if migrated from vercel hosting
+    // ----
     if (!exists)
       va.track("upload", {
-        size: acceptedFiles.reduce((total, file) => total + file.size, 0),
+        size: filesSize,
         files: acceptedFiles.length,
       });
+    // ----
 
-    setFiles(acceptedFiles);
     setCID(cid);
     setExists(exists);
     setUploading(false);
@@ -51,7 +62,8 @@ export default function Upload() {
     setUploading(false);
     setFiles([]);
     setExists(false);
-    setCID(undefined);
+    setCID("");
+    setProgress(0);
   };
 
   const genLink = () =>
@@ -65,8 +77,8 @@ export default function Upload() {
 
   const [copied, setCopied] = useState<boolean>();
   const resultState = (
-    <div className="flex flex-col">
-      <FileTable files={files} />
+    <div className="flex flex-col w-2/3">
+      <FileTable files={files} filesSize={filesSize} />
 
       <Command className="rounded-lg border shadow-md mt-4">
         <CommandInput placeholder="Type a command or search..." />
@@ -124,7 +136,11 @@ export default function Upload() {
 
   return (
     <>
-      {(uploading && <Spinner />) || (!cid && uploadState) || resultState}
+      {(uploading && (
+        <Spinner total={filesSize} progress={progress} started={started} />
+      )) ||
+        (!cid && uploadState) ||
+        resultState}
       {exists && (
         <WithToast
           title={`✅ uploaded already `}
