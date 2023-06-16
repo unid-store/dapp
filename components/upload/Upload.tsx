@@ -23,7 +23,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 
-import calculateTotalFileSize from "@/lib/files/calculateTotalFileSize";
+import calculateTotalFilesSize from "@/lib/files/calculateTotalFilesSize";
 
 export default function Upload() {
   const [uploading, setUploading] = useState<boolean>();
@@ -40,7 +40,7 @@ export default function Upload() {
     // ----
     if (!exists)
       va.track("upload", {
-        size: calculateTotalFileSize(files),
+        size: calculateTotalFilesSize(files),
         files: acceptedFiles.length,
       });
     // ----

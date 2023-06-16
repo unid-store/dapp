@@ -1,11 +1,11 @@
-import calculateTotalFileSize from "@/lib/files/calculateTotalFileSize";
+import calculateTotalFilesSize from "@/lib/files/calculateTotalFilesSize";
 
 interface FileTableProps {
   files: File[];
 }
 
 const FileTable = ({ files }: FileTableProps) => {
-  const totalSize = calculateTotalFileSize(files);
+  const totalSize = calculateTotalFilesSize(files);
 
   return (
     <table className="table-auto w-full text-xs">
@@ -36,6 +36,8 @@ const FileTable = ({ files }: FileTableProps) => {
     </table>
   );
 };
+
+// @TODO refactor: move `format...` functions to utils
 
 function formatFileSize(fileSize: number): string {
   if (fileSize < 1024) {
