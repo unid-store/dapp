@@ -1,10 +1,12 @@
 import calculateTotalFilesSize from "@/lib/files/calculateTotalFilesSize";
+import formatFileSize from "@/lib/files/formatFileSize";
 
 interface FileTableProps {
   files: File[];
+  filesSize: number;
 }
 
-const FileTable = ({ files }: FileTableProps) => {
+const FileTable = ({ files, filesSize }: FileTableProps) => {
   const totalSize = calculateTotalFilesSize(files);
 
   return (
@@ -38,16 +40,6 @@ const FileTable = ({ files }: FileTableProps) => {
 };
 
 // @TODO refactor: move `format...` functions to utils
-
-function formatFileSize(fileSize: number): string {
-  if (fileSize < 1024) {
-    return fileSize + " B";
-  } else if (fileSize < 1024 * 1024) {
-    return (fileSize / 1024).toFixed(2) + " KB";
-  } else {
-    return (fileSize / (1024 * 1024)).toFixed(2) + " MB";
-  }
-}
 
 function formatFileName(fileName: string): string {
   const isMobileDevice =
