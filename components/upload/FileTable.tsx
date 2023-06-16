@@ -10,11 +10,13 @@ const FileTable = ({ files, filesSize }: FileTableProps) => {
   const totalSize = calculateTotalFilesSize(files);
 
   return (
-    <table className="table-auto w-full text-xs">
+    <table className="table-auto text-xs">
       <thead className="bg-gradient-to-r from-gray-600 to-gray-900 ">
         <tr className="text-white">
-          <th className="px-10 py-1 rounded-tl-md">{"Name"}</th>
-          <th className="rounded-tr-md">Size</th>
+          <th className="px-10 py-1 rounded-tl-md" text-left>
+            {"Name"}
+          </th>
+          <th className="rounded-tr-md text-right pr-12">Size</th>
         </tr>
       </thead>
       <tbody>

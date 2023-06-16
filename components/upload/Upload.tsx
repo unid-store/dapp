@@ -77,7 +77,7 @@ export default function Upload() {
 
   const [copied, setCopied] = useState<boolean>();
   const resultState = (
-    <div className="flex flex-col w-2/3">
+    <div className="flex flex-col w-2/3 lg:w-1/3">
       <FileTable files={files} filesSize={filesSize} />
 
       <Command className="rounded-lg border shadow-md mt-4">

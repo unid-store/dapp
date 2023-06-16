@@ -40,7 +40,7 @@ const DesktopDropZone = ({ onDrop }: FileDropZoneProps) => {
   return (
     <div
       {...getRootProps()}
-      className={`bg-gradient-to-r from-gray-600 to-gray-900 h-15  w-2/3 rounded cursor-pointer mb-6 md:block hidden text-white`}
+      className={`bg-gradient-to-r from-gray-600 to-gray-900 h-15  w-2/3 lg:w-1/3 rounded cursor-pointer mb-6 md:block hidden text-white`}
     >
       <input {...getInputProps()} />
       {(!isDragActive && (

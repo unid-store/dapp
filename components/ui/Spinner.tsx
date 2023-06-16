@@ -21,7 +21,7 @@ export const Spinner = ({
   }, [total, progress]);
 
   return (
-    <div className="flex flex-col items-center w-2/3">
+    <div className="flex flex-col items-center w-2/3 lg:w-1/3">
       {!started ? "Packaging files ..." : "Uploading ..."}
       {shouldShowProgress && (
         <>
