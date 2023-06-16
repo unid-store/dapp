@@ -13,7 +13,6 @@ import { UploadIcon } from "@/components/media/icons/UploadIcon";
 import { WithToast } from "@/components/feedback/WithToast";
 import { Spinner } from "@/components/ui/Spinner";
 import { Button } from "@/components/ui/Button";
-
 import {
   Command,
   CommandEmpty,
@@ -23,6 +22,8 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
+
+import calculateTotalFileSize from "@/lib/files/calculateTotalFileSize";
 
 export default function Upload() {
   const [uploading, setUploading] = useState<boolean>();
@@ -35,11 +36,14 @@ export default function Upload() {
 
     const { cid, exists } = await upload(acceptedFiles);
 
+    // @NOTE remove code between dash lines - if migrated from vercel hosting
+    // ----
     if (!exists)
       va.track("upload", {
-        size: acceptedFiles.reduce((total, file) => total + file.size, 0),
+        size: calculateTotalFileSize(files),
         files: acceptedFiles.length,
       });
+    // ----
 
     setFiles(acceptedFiles);
     setCID(cid);
