@@ -1,18 +1,30 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, useEffect } from "react";
 import { NFTStorage } from "nft.storage";
+import { ActionType, Actions } from "./useUploadState";
 
-export const upload = async (
-  files: File[],
-  setProgress: Dispatch<SetStateAction<number>>,
-  setStarted: Dispatch<SetStateAction<boolean>>
-) => {
+export const upload = async (files: File[], dispatch: Dispatch<ActionType>) => {
   const { car, cid: cidObj } = await NFTStorage.encodeDirectory(files);
   const cid = cidObj.toString();
 
-  const exists = await NFTStorage.check(
+  dispatch({ type: Actions.ToggleUploading });
+  dispatch({ type: Actions.SetFiles, payload: files });
+  dispatch({ type: Actions.SetCID, payload: cid });
+
+  const check = await NFTStorage.check(
     { endpoint: new URL("https://api.nft.storage/") },
     cid
-  ).catch(() => false);
+  ).catch((error) => {
+    console.error({ error });
+    if (error.message === "NFT not found") {
+      return undefined;
+    } else {
+      throw new Error(`Failed to check files: ${error.message}`);
+    }
+  });
+
+  const exists = !!check;
+
+  dispatch({ type: Actions.SetExists, payload: exists });
 
   if (!exists) {
     const { ucan, did } = await fetch("/auth/nft.storage", {
@@ -23,13 +35,9 @@ export const upload = async (
 
     await nftstorage.storeCar(car, {
       maxChunkSize: 6553600 / 2, // reduce chunk size for better progress feedback
-      onStoredChunk: (size) => {
-        setStarted(true);
-        setProgress((prev) => prev + size);
-      },
+      onStoredChunk: (size) =>
+        dispatch({ type: Actions.UpdateProgress, payload: size }),
     });
-    return { cid, exists: false };
-  } else {
-    return { cid, exists: true };
   }
+  dispatch({ type: Actions.ToggleUploading });
 };

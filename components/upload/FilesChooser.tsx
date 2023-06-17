@@ -53,7 +53,7 @@ const DesktopDropZone = ({ onDrop }: FileDropZoneProps) => {
   );
 };
 
-const FileDropZone = ({ onDrop }: FileDropZoneProps) => {
+export const FilesChooser = ({ onDrop }: FileDropZoneProps) => {
   return (
     <>
       <DesktopDropZone onDrop={onDrop} />
@@ -61,5 +61,3 @@ const FileDropZone = ({ onDrop }: FileDropZoneProps) => {
     </>
   );
 };
-
-export default FileDropZone;
