@@ -1,5 +1,4 @@
-import calculateTotalFilesSize from "@/lib/files/calculateTotalFilesSize";
-import formatFileSize from "@/lib/files/formatFileSize";
+import { formatFileSize } from "@/lib/files";
 
 interface FileTableProps {
   files: File[];
@@ -7,8 +6,6 @@ interface FileTableProps {
 }
 
 const FileTable = ({ files, filesSize }: FileTableProps) => {
-  const totalSize = calculateTotalFilesSize(files);
-
   return (
     <table className="table-auto text-xs">
       <thead className="bg-gradient-to-r from-gray-600 to-gray-900 ">
@@ -32,7 +29,7 @@ const FileTable = ({ files, filesSize }: FileTableProps) => {
           <tr className="bg-gray-50  border-t-2">
             <td className=" pl-6 rounded-bl-md">Total: {files.length} files</td>
             <td className=" pr-6 rounded-br-md text-right">
-              {formatFileSize(totalSize)}
+              {formatFileSize(filesSize)}
             </td>
           </tr>
         )}
@@ -42,23 +39,5 @@ const FileTable = ({ files, filesSize }: FileTableProps) => {
 };
 
 // @TODO refactor: move `format...` functions to utils
-
-function formatFileName(fileName: string): string {
-  const isMobileDevice =
-    /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
-      window.navigator.userAgent
-    );
-
-  let maxLen = isMobileDevice ? 16 : 36; // Set maxLen based on device type
-
-  if (fileName.length > maxLen) {
-    let splitName = fileName.split(".");
-    let ext = splitName.pop();
-    let baseName = splitName.join(".");
-    return baseName.substring(0, 4) + "..." + baseName.slice(-4) + "." + ext;
-  } else {
-    return fileName;
-  }
-}
 
 export default FileTable;

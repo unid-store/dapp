@@ -9,6 +9,8 @@ import FileDropZone from "./FileDropZone";
 import { upload } from "./HandleUpload";
 import FileTable from "./FileTable";
 
+import { calcTotalFilesSize } from "@/lib/files";
+
 import { UploadIcon } from "@/components/media/icons/UploadIcon";
 import { WithToast } from "@/components/feedback/WithToast";
 import { Spinner } from "@/components/ui/Spinner";
@@ -23,12 +25,10 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 
-import calculateTotalFilesSize from "@/lib/files/calculateTotalFilesSize";
-
 export const Upload = () => {
   const [uploading, setUploading] = useState<boolean>();
   const [files, setFiles] = useState<File[]>([]);
-  const filesSize = useMemo(() => calculateTotalFilesSize(files), [files]);
+  const filesSize = useMemo(() => calcTotalFilesSize(files), [files]);
   const [exists, setExists] = useState<boolean>(false);
   const [cid, setCID] = useState<string>("");
   const [progress, setProgress] = useState<number>(0);
