@@ -25,7 +25,7 @@ import {
 
 import calculateTotalFilesSize from "@/lib/files/calculateTotalFilesSize";
 
-export default function Upload() {
+export const Upload = () => {
   const [uploading, setUploading] = useState<boolean>();
   const [files, setFiles] = useState<File[]>([]);
   const filesSize = useMemo(() => calculateTotalFilesSize(files), [files]);
@@ -150,4 +150,4 @@ export default function Upload() {
       )}
     </>
   );
-}
+};
