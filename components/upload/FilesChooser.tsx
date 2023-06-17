@@ -3,6 +3,7 @@ import { useDropzone, FileRejection, DropEvent } from "react-dropzone";
 
 import { UploadIcon } from "@/components/media/icons/UploadIcon";
 import { Button } from "../ui/Button";
+import { ServiceProviderOpts } from "../options/ServiceProviderOpts";
 
 interface FileDropZoneProps {
   onDrop: (
