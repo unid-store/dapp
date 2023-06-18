@@ -14,7 +14,7 @@ export const UploadProgress = ({ total, progress }: UploadProgressProps) => {
   }, [total, progress]);
 
   return (
-    <div className="flex flex-col items-center w-2/3 lg:w-1/3">
+    <>
       {progress === 0 && "Packaging files ..."}
       {progress !== 0 && (
         <>
@@ -25,6 +25,6 @@ export const UploadProgress = ({ total, progress }: UploadProgressProps) => {
           {total && formatFileSize(total)}
         </>
       )}
-    </div>
+    </>
   );
 };

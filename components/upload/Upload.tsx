@@ -23,19 +23,23 @@ export const Upload = () => {
     <>
       {/* SHOW initial state to let user select files */}
       {!state.cid && (
-        <FilesChooser
-          onDrop={(acceptedFiles: File[]) => upload(acceptedFiles, dispatch)}
-        />
+        <div className="flex flex-grow flex-col justify-center w-2/3 lg:w-1/3">
+          <FilesChooser
+            onDrop={(acceptedFiles: File[]) => upload(acceptedFiles, dispatch)}
+          />
+        </div>
       )}
 
       {/* After user have selected files we want to show progress based on state change */}
       {state.uploading && (
-        <UploadProgress total={filesSize} progress={state.progress} />
+        <div className="flex flex-grow flex-col justify-center items-center w-2/3 lg:w-1/3">
+          <UploadProgress total={filesSize} progress={state.progress} />
+        </div>
       )}
 
       {/* After upload finished - show result */}
       {state.cid && !state.uploading && (
-        <div className="flex flex-col w-2/3 lg:w-1/3">
+        <div className="flex flex-grow flex-col justify-center w-2/3 lg:w-1/3">
           <FilesExplorer files={state.files} filesSize={filesSize} />
           <Commands link={state.link} dispatch={dispatch} />
         </div>

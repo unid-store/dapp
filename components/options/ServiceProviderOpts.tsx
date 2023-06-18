@@ -17,10 +17,10 @@ export const ServiceProviderOpts = () => {
     <Collapsible
       open={isOpen}
       onOpenChange={setIsOpen}
-      className="w-[350px] space-y-2 mt-8"
+      className="w-2/3 lg:w-1/3 space-y-2 mb-4 font-semibold"
     >
       <div className="flex items-center justify-between space-x-4 px-4 mb-4">
-        <h4 className="text-sm font-semibold">Storage providers:</h4>
+        <h4 className="text-sm">Storage providers:</h4>
         <CollapsibleTrigger asChild>
           <Button variant="outlined">
             <ChevronsUpDown className="h-4 w-4" />
@@ -29,7 +29,7 @@ export const ServiceProviderOpts = () => {
         </CollapsibleTrigger>
       </div>
       <a href="https://nft.storage" target="_blank" rel="noopener noreferrer">
-        <div className="flex justify-between items-center rounded-md border px-4 py-6 font-mono text-sm">
+        <div className="flex justify-between items-center rounded-md border px-4 py-6 font-mono text-sm ">
           <img
             className="w-8 h-8 rounded"
             src="https://avatars.githubusercontent.com/u/81696905?s=200&v=4"
@@ -45,7 +45,7 @@ export const ServiceProviderOpts = () => {
           href="https://web3.storage"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex justify-between items-center rounded-md border px-4 py-2 font-mono text-sm"
+          className="flex justify-between items-center rounded-md border px-4 py-2"
         >
           <img
             className="w-8 h-8 rounded"
