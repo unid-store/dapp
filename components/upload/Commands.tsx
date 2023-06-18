@@ -19,7 +19,7 @@ interface CommandsProps {
 export const Commands = ({ link, dispatch }: CommandsProps) => {
   const [copied, setCopied] = useState<boolean>();
   return (
-    <Command className="rounded-lg border shadow-md mt-4">
+    <Command className="rounded-md mt-2">
       <CommandInput placeholder="Type a command or search..." />
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
